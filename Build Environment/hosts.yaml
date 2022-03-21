@@ -1,0 +1,447 @@
+---
+
+spine1:
+  hostname: spine1.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.179/24
+    physical_interfaces:
+      Ethernet2:
+        descr: to leaf1
+        ip_address_mask: 10.10.1.1/30
+      Ethernet3:
+        descr: to leaf2
+        ip_address_mask: 10.10.1.5/30
+      Ethernet4:
+        descr: to leaf3
+        ip_address_mask: 10.10.1.9/30
+      Ethernet5:
+        descr: to leaf4
+        ip_address_mask: 10.10.1.13/30
+      Ethernet6:
+        descr: to borderleaf1
+        ip_address_mask: 172.16.1.2/30
+      Ethernet7:
+        descr: to borderleaf2
+        ip_address_mask: 172.16.2.2/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.21.21.21/32
+    bgp_config:
+      bgp_asn: 65100
+      bgp_router_id: 10.21.21.21
+      underlay_neighbors:
+        - name: leaf1
+          peer_ip: 10.10.1.2
+          remote_asn: 65001
+        - name: leaf2
+          peer_ip: 10.10.1.6
+          remote_asn: 65002
+        - name: leaf3
+          peer_ip: 10.10.1.10
+          remote_asn: 65003
+        - name: leaf4
+          peer_ip: 10.10.1.14
+          remote_asn: 65004
+      underlay_bl_neighbors:
+        - peer_ip: 172.16.1.1
+        - peer_ip: 172.16.2.1
+      overlay_neighbors:
+        - peer_ip: 10.11.11.11
+          remote_asn: 65001
+        - peer_ip: 10.12.12.12
+          remote_asn: 65002
+        - peer_ip: 10.13.13.13
+          remote_asn: 65003
+        - peer_ip: 10.14.14.14
+          remote_asn: 65004
+
+
+spine2:
+  hostname: spine2.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.180/24
+    physical_interfaces:
+      Ethernet2:
+        descr: to leaf1
+        ip_address_mask: 10.10.2.1/30
+      Ethernet3:
+        descr: to leaf2
+        ip_address_mask: 10.10.2.5/30
+      Ethernet4:
+        descr: to leaf3
+        ip_address_mask: 10.10.2.9/30
+      Ethernet5:
+        descr: to leaf4
+        ip_address_mask: 10.10.2.13/30
+      Ethernet6:
+        descr: to borderleaf1
+        ip_address_mask: 172.16.1.6/30
+      Ethernet7:
+        descr: to borderleaf2
+        ip_address_mask: 172.16.2.6/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.22.22.22/32
+    bgp_config:
+      bgp_asn: 65100
+      bgp_router_id: 10.22.22.22
+      underlay_neighbors:
+        - name: leaf1
+          peer_ip: 10.10.2.2
+          remote_asn: 65001
+        - name: leaf2
+          peer_ip: 10.10.2.6
+          remote_asn: 65002
+        - name: leaf3
+          peer_ip: 10.10.2.10
+          remote_asn: 65003
+        - name: leaf4
+          peer_ip: 10.10.2.14
+          remote_asn: 65004
+      underlay_bl_neighbors:
+        - peer_ip: 172.16.1.6
+        - peer_ip: 172.16.2.6
+      overlay_neighbors:
+        - peer_ip: 10.11.11.11
+          remote_asn: 65001
+        - peer_ip: 10.12.12.12
+          remote_asn: 65002
+        - peer_ip: 10.13.13.13
+          remote_asn: 65003
+        - peer_ip: 10.14.14.14
+          remote_asn: 65004
+
+
+spine3:
+  hostname: spine3.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.181/24
+    physical_interfaces:
+      Ethernet2:
+        descr: to leaf1
+        ip_address_mask: 10.10.3.1/30
+      Ethernet3:
+        descr: to leaf2
+        ip_address_mask: 10.10.3.5/30
+      Ethernet4:
+        descr: to leaf3
+        ip_address_mask: 10.10.3.9/30
+      Ethernet5:
+        descr: to leaf4
+        ip_address_mask: 10.10.3.13/30
+      Ethernet6:
+        descr: to borderleaf1
+        ip_address_mask: 172.16.1.10/30
+      Ethernet7:
+        descr: to borderleaf2
+        ip_address_mask: 172.16.2.10/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.23.23.23/32
+    bgp_config:
+      bgp_asn: 65100
+      bgp_router_id: 10.23.23.23
+      underlay_neighbors:
+        - name: leaf1
+          peer_ip: 10.10.3.2
+          remote_asn: 65001
+        - name: leaf2
+          peer_ip: 10.10.3.6
+          remote_asn: 65002
+        - name: leaf3
+          peer_ip: 10.10.3.10
+          remote_asn: 65003
+        - name: leaf4
+          peer_ip: 10.10.3.14
+          remote_asn: 65004
+      underlay_bl_neighbors:
+        - peer_ip: 172.16.1.10
+        - peer_ip: 172.16.2.10
+      overlay_neighbors:
+        - peer_ip: 10.11.11.11
+          remote_asn: 65001
+        - peer_ip: 10.12.12.12
+          remote_asn: 65002
+        - peer_ip: 10.13.13.13
+          remote_asn: 65003
+        - peer_ip: 10.14.14.14
+          remote_asn: 65004
+
+
+
+leaf1:
+  hostname: leaf1.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.182/24
+    physical_interfaces:
+      Ethernet3:
+        descr: to spine1
+        ip_address_mask: 10.10.1.2/30
+      Ethernet4:
+        descr: to spine2
+        ip_address_mask: 10.10.2.2/30
+      Ethernet5:
+        descr: to spine3
+        ip_address_mask: 10.10.3.2/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.11.11.11/32
+    bgp_config:
+      bgp_asn: 65001
+      bgp_router_id: 10.21.21.21
+      underlay_neighbors:
+        - name: spine1
+          peer_ip: 10.10.1.1
+        - name: spine2
+          peer_ip: 10.10.2.1
+        - name: spine3
+          peer_ip: 10.10.3.1
+      overlay_neighbors:
+        - name: spine1
+          peer_ip: 10.21.21.21
+        - name: spine2
+          peer_ip: 10.22.22.22
+        - name: spine3
+          peer_ip: 10.23.23.23
+
+
+
+leaf2:
+  hostname: leaf2.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.183/24
+    physical_interfaces:
+      Ethernet3:
+        descr: to spine1
+        ip_address_mask: 10.10.1.6/30
+      Ethernet4:
+        descr: to spine2
+        ip_address_mask: 10.10.2.6/30
+      Ethernet5:
+        descr: to spine3
+        ip_address_mask: 10.10.3.6/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.12.12.12/32
+    bgp_config:
+      bgp_asn: 65002
+      underlay_neighbors:
+        - name: spine1
+          peer_ip: 10.10.1.5
+        - name: spine2
+          peer_ip: 10.10.2.5
+        - name: spine3
+          peer_ip: 10.10.3.5
+      overlay_neighbors:
+        - name: spine1
+          peer_ip: 10.21.21.21
+        - name: spine2
+          peer_ip: 10.22.22.22
+        - name: spine3
+          peer_ip: 10.23.23.23
+
+
+leaf3:
+  hostname: leaf3.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.184/24
+    physical_interfaces:
+      Ethernet3:
+        descr: to spine1
+        ip_address_mask: 10.10.1.10/30
+      Ethernet4:
+        descr: to spine2
+        ip_address_mask: 10.10.2.10/30
+      Ethernet5:
+        descr: to spine3
+        ip_address_mask: 10.10.3.10/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.13.13.13/32
+    bgp_config:
+      bgp_asn: 65003
+      underlay_neighbors:
+        - name: spine1
+          peer_ip: 10.10.1.9
+        - name: spine2
+          peer_ip: 10.10.2.9
+        - name: spine3
+          peer_ip: 10.10.3.9
+      overlay_neighbors:
+        - name: spine1
+          peer_ip: 10.21.21.21
+        - name: spine2
+          peer_ip: 10.22.22.22
+        - name: spine3
+          peer_ip: 10.23.23.23
+
+
+leaf4:
+  hostname: leaf4.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.185/24
+    physical_interfaces:
+      Ethernet3:
+        descr: to spine1
+        ip_address_mask: 10.10.1.14/30
+      Ethernet4:
+        descr: to spine2
+        ip_address_mask: 10.10.2.14/30
+      Ethernet5:
+        descr: to spine3
+        ip_address_mask: 10.10.3.14/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.14.14.14/32
+    bgp_config:
+      bgp_asn: 65004
+      underlay_neighbors:
+        - name: spine1
+          peer_ip: 10.10.1.13
+        - name: spine2
+          peer_ip: 10.10.2.13
+        - name: spine3
+          peer_ip: 10.10.3.13
+      overlay_neighbors:
+        - name: spine1
+          peer_ip: 10.21.21.21
+        - name: spine2
+          peer_ip: 10.22.22.22
+        - name: spine3
+          peer_ip: 10.23.23.23
+
+borderleaf1:
+  hostname: borderleaf1.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.177/24
+    physical_interfaces:
+      Ethernet1:
+        descr: to borderleaf2
+        ip_address_mask: 172.17.2.1/30
+      Ethernet2:
+        descr: to borderleaf2
+        ip_address_mask: 172.17.2.5/30
+      Ethernet3:
+        descr: to spine1
+        ip_address_mask: 172.16.1.1/30
+      Ethernet4:
+        descr: to spine2
+        ip_address_mask: 172.16.1.5/30
+      Ethernet5:
+        descr: to spine3
+        ip_address_mask: 172.16.1.9/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.255.255.1/32
+    bgp_config:
+      bgp_asn: 65500
+      underlay_neighbors:
+        - name: spine1
+          peer_ip: 172.16.1.2
+        - name: spine2
+          peer_ip: 172.16.1.6
+        - name: spine3
+          peer_ip: 172.16.1.10
+      overlay_neighbors:
+        - name: spine1
+          peer_ip: 10.21.21.21
+        - name: spine2
+          peer_ip: 10.22.22.22
+        - name: spine3
+          peer_ip: 10.23.23.23
+
+borderleaf2:
+  hostname: borderleaf2.mylab.com
+  groups:
+    - eos
+  data:
+    management_interface:
+      Management1:
+        descr: management interface
+        ip_address_mask: 192.168.1.178/24
+    physical_interfaces:
+      Ethernet1:
+        descr: to borderleaf2
+        ip_address_mask: 172.17.2.2/30
+      Ethernet2:
+        descr: to borderleaf2
+        ip_address_mask: 172.17.2.6/30
+      Ethernet3:
+        descr: to spine1
+        ip_address_mask: 172.16.2.1/30
+      Ethernet4:
+        descr: to spine2
+        ip_address_mask: 172.16.2.5/30
+      Ethernet5:
+        descr: to spine3
+        ip_address_mask: 172.16.2.9/30
+    logical_interfaces:
+      Loopback0:
+        descr: Loopback for eVPN BGP Overlay Peering
+        ip_address_mask: 10.255.255.2/32
+    bgp_config:
+      bgp_asn: 65500
+      underlay_neighbors:
+        - name: spine1
+          peer_ip: 172.16.2.2
+        - name: spine2
+          peer_ip: 172.16.2.6
+        - name: spine3
+          peer_ip: 172.16.2.10
+      overlay_neighbors:
+        - name: spine1
+          peer_ip: 10.21.21.21
+        - name: spine2
+          peer_ip: 10.22.22.22
+        - name: spine3
+          peer_ip: 10.23.23.23
+
+
