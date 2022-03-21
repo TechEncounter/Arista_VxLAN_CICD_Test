@@ -1,0 +1,22 @@
+{% for interface, data in physical_interfaces.items() %}
+interface {{ interface }}
+ no switchport
+ description {{ data.descr }}
+ ip address {{ data.ip_address_mask }}
+ no shutdown
+!
+{% endfor %}
+{% for interface, data in logical_interfaces.items() %}
+interface {{ interface }}
+ description {{ data.descr }}
+ ip address {{ data.ip_address_mask }}
+ no shutdown
+!
+{% endfor %}
+{% for interface, data in management_interface.items() %}
+interface {{ interface }}
+  description {{ data.descr }}
+  ip address {{ data.ip_address_mask }}
+{% endfor %}
+!
+

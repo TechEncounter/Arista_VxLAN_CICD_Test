@@ -1,0 +1,27 @@
+no aaa root
+!
+service routing protocols model multi-agent
+!
+username arista secret arista privilege 15
+!
+daemon TerminAttr
+   exec /usr/bin/TerminAttr -cvaddr=192.168.1.15:9910 -cvcompression=gzip -taillogs -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+   no shutdown
+!
+management api http-commands
+ no shutdown
+!
+hostname {{ host.name }}
+!
+spanning-tree mode rapid-pvst
+!
+{% include 'interfaces.j2' %}
+ip routing
+!
+{% if 'spine' in host.name %}
+{% include 'spine_bgp.j2' %}
+{% endif %}
+{% if 'leaf' in host.name %}
+{% include 'leaf_bgp.j2' %}
+{% endif %}
+

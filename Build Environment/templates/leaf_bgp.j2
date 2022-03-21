@@ -1,0 +1,24 @@
+router bgp {{ host.data.bgp_config.bgp_asn }}
+   maximum-paths 4 ecmp 4
+   neighbor EVPN-OVERLAY peer group
+   neighbor EVPN-OVERLAY remote-as {{ spine_asn }}
+   neighbor EVPN-OVERLAY update-source Loopback0
+   neighbor EVPN-OVERLAY ebgp-multihop
+   neighbor EVPN-OVERLAY send-community
+   neighbor EVPN-OVERLAY maximum-routes 0
+   neighbor spines peer group
+   neighbor spines remote-as {{ spine_asn }}
+   neighbor spines maximum-routes 0
+{%  for peer in host.data.bgp_config.underlay_neighbors %}
+   neighbor {{ peer.peer_ip }} peer group spines
+{% endfor %}
+   neighbor 10.21.21.21 peer group EVPN-OVERLAY
+   neighbor 10.22.22.22 peer group EVPN-OVERLAY
+   neighbor 10.23.23.23 peer group EVPN-OVERLAY
+   !
+   address-family evpn
+      neighbor EVPN-OVERLAY activate
+   !
+   address-family ipv4
+      no neighbor EVPN-OVERLAY activate
+      network {{ host.data.logical_interfaces.Loopback0.ip_address_mask }}

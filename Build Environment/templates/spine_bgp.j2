@@ -1,0 +1,34 @@
+router bgp {{ spine_asn }}
+   maximum-paths 4 ecmp 4
+   neighbor EVPN-OVERLAY peer group
+   neighbor EVPN-OVERLAY next-hop-unchanged
+   neighbor EVPN-OVERLAY update-source Loopback0
+   neighbor EVPN-OVERLAY ebgp-multihop
+   neighbor EVPN-OVERLAY send-community
+   neighbor EVPN-OVERLAY maximum-routes 0
+{% for underlay_neighbors in bgp_config.underlay_neighbors %}
+   neighbor {{ underlay_neighbors.name }} peer group
+   neighbor {{ underlay_neighbors.name }} remote-as {{ underlay_neighbors.remote_asn }}
+   neighbor {{ underlay_neighbors.name }} send-community
+   neighbor {{ underlay_neighbors.name }} maximum-routes 12000
+   neighbor {{ underlay_neighbors.peer_ip }} peer group {{ underlay_neighbors.name }}
+{% endfor %}
+   neighbor borderleaf peer group
+   neighbor borderleaf maximum-routes 12000
+   neighbor borderleaf remote-as 65500
+{% for underlay_bl_neighbors in bgp_config.underlay_bl_neighbors %}
+   neighbor {{ underlay_bl_neighbors.peer_ip }} peer group borderleaf
+{% endfor %}
+{% for overlay_neighbors in bgp_config.overlay_neighbors %}
+   neighbor {{ overlay_neighbors.peer_ip }} peer group EVPN-OVERLAY
+   neighbor {{ overlay_neighbors.peer_ip }} remote-as {{ overlay_neighbors.remote_asn }}
+{% endfor %}
+   redistribute connected
+   !
+   address-family evpn
+      neighbor EVPN-OVERLAY activate
+   !
+   address-family ipv4
+      no neighbor EVPN-OVERLAY activate
+      network {{ host.data.logical_interfaces.Loopback0.ip_address_mask }}
+      network 0.0.0.0/0
